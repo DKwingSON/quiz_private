@@ -26,8 +26,14 @@
     <script type="text/javascript" src="js/wxm-core.js"></script>
 
 </head>
-
-<body id="test1" class="test1">
+<!-- <button class="btn" onclick="openLockDown()">点击显示遮罩层模态框</button> -->
+<!-- <div id='overlay'>
+    <div class="overlay-modal">
+        <span>我是自定义模态框</span>
+        <button type="button" class="btn" onclick="closeLuckDown()">点击隐藏遮罩层模态框</button>
+    </div>
+</div> -->
+<body id="quiz" class="quiz">
     <div class="wechat-thumb">
         <img src="asserts/wechat-thumb.JPG" />
     </div>
@@ -62,29 +68,31 @@
                                     <label for="" class="sr-only">前言</label>
                                 </div>
                                 <p style="position: relative; top: -10px;">
-                                    1、答对全部十道题的前6名现场宾客可以获得主办方准备的精美小礼品一份
+                                    1、答对全部十道题的前6名现场宾客可以获得主办方准备的精美小礼品一份；
                                     <br>
-                                    2、现场工作人员对实际规则有最终解释权
+                                    2、回答失败会锁定当前页面，请谨慎作答；
+                                    <br>
+                                    3、现场工作人员对规则有最终解释权。
                                 </p>
                                 <div class="buttons">
                                     <a href="#result" class="btn btn-lg btn-success"
-                                        style="background:#f0d782; width: 50%" onclick="return next(0);">
-                                        <strong style="color:#404243;font-size: 22px;">开始答题</strong></a>
+                                        style="background:#f0d782; width: 50%" onclick="return start(0);">
+                                        <strong style="color:#404243;font-size: 22px;">我明白了</strong></a>
                                 </div>
                             </form>
                         </div>
 
 
 
-                        <div id="panel2" class="panel-body js_answer" style="display:none;  background:#fbfcf7">
+                        <div id="panel_quiz" class="panel-body js_answer" style="display:none;  background:#fbfcf7">
                             <form style="background:#fbfcf7;" action="#" method="POST">
                                 <a name="result" href="javascript:void(0)"></a>
 
-                                <h3 style="color:#000;"> 二奶提升男性的阶层体验 </h3>
-                                <p class="middle-box">社会地位偏低的男性可以从二奶处找到一家之主的感觉，从而提升自己的阶层体验；
-                                    经济社会地位本来就偏高的男性可以因为有二奶而看上去富有男性魅力，更能划分阶层界限。 </p>
+                                <h3 id="quiz_desc" style="color:#000;"> 地球是⚪的？ </h3>
+                                <!-- <p class="middle-box">社会地位偏低的男性可以从二奶处找到一家之主的感觉，从而提升自己的阶层体验； -->
+                                <!-- 经济社会地位本来就偏高的男性可以因为有二奶而看上去富有男性魅力，更能划分阶层界限。 </p> -->
 
-                                <ul class="list-group  js_group">
+                                <ul id="quiz_list" class="list-group  js_group">
                                     <li class="list-group-item" onclick="return toggle(this);">
                                         <input name="g" type="radio" class="" value="1A" />
                                         A.真
@@ -105,448 +113,27 @@
                             </form>
                         </div>
 
-                        <div id="panel2" class="panel-body js_answer" style="display:none;  background:#fbfcf7">
-                            <form id="collector" style="background:#fbfcf7;" action="#" method="POST">
-                                <a name="result" href="javascript:void(0)"></a>
-
-                                <h3>请输入您的名字 </h3>
-                                <label style="color:#000;"> 性别 </label>
-                                <br>
-                                <select class="styled-select" name="Gender">
-                                    <option value=""></option>
-                                    <option value="男">男</option>
-                                    <option value="女">女</option>
-                                    <option value="其他">其他</option>
-                                </select>
-                                <br>
-                                <label style="color:#000;"> 年龄 </label>
-                                <br>
-                            </form>
-                            <br>
-                            <button onclick="return toggle(this);" class="result-btn">
-                                查看结果
-                            </button>
-                        </div>
-
-
-                        <div id="panel3" class="panel-body js_result" data-id="10" style="display: none;">
-
-                            <h1 class="bold">
-                                太牛了！你得了100分！</h1>
+                        <div id="panel_explain" class="panel-body js_result" data-id="10" style="display: none;">
+                            <h1 id="explain_head" class="bold">
+                                问题#1</h1>
                             <hr>
                             <dl>
-                                <dt>看来愚人节没人能骗到你了。分享到朋友圈炫耀一下吧！</dt>
-                                <dd>
-                                    <p>点这里关注
-                                        <a
-                                            href="http://mp.weixin.qq.com/s?__biz=MzI3MDE0NzI0MA==&mid=402752827&idx=1&sn=cf86a45ebeb368701d312d5273f940ba#rd">政见CNPolitics,</a>
-                                        回复“骗人”获取对这些奇葩研究的详细介绍。
-                                    </p>
-                                </dd>
-                                <dd> <button onclick="location.href=''" class="result-btn">
-                                        再玩一次
-                                    </button>
-                                </dd>
-                                <dd>
-                                    <div class="divider" />
-                                </dd>
-                                <dd>
-                                    <button href="javascript:void(0)" onclick="$(&#39;#mcover&#39;).show()"
-                                        class="result-btn">
-                                        把结果分享到朋友圈
-                                    </button>
-                                </dd>
+                                <dt id="explain_desc">解释文本</dt>
                             </dl>
-
-                            <br>
-                            <div id="copy">
-                                <p class="text-center">
-                                    <a href="http://cnpolitics.org"
-                                        style="color: #000; font-weight: bold;font-size: 15px;">&copy; 政见CNPolitics</a>
-                                </p>
-                            </div>
-
+                            <button id="btn_next" href="javascript:void(0)" onclick="javascript:next();" class="result-btn">原来如此...</button>
+                            <button id="btn_revert" href="javascript:void(0)" onclick="javascript:revert();" class="result-btn">重新答题</button>
+                            <button id="btn_lock" href="javascript:void(0)" onclick="javascript:void(0);" class="result-btn">请等待10秒</button>
                         </div>
 
-                        <div id="panel3" class="panel-body js_result" data-id="9" style="display: none;">
+                        <div id="panel_result" class="panel-body js_result" data-id="10" style="display: none;">
 
                             <h1 class="bold">
-                                很不错了，你得了90分！</h1>
+                                恭喜您完成答题，请迅速上台凭借此页面领奖~</h1>
                             <hr>
                             <dl>
-                                <dt>看来愚人节很难有人可以骗到你了。分享到朋友圈炫耀一下吧！</dt>
-                                <dd>
-                                    <p>想知道哪题错了，点这里关注
-                                        <a
-                                            href="http://mp.weixin.qq.com/s?__biz=MzI3MDE0NzI0MA==&mid=402752827&idx=1&sn=cf86a45ebeb368701d312d5273f940ba#rd">政见CNPolitics,</a>
-                                        回复“骗人”获取答案。
-                                    </p>
-                                </dd>
-                                <dd> <button onclick="location.href=''" class="result-btn">
-                                        再玩一次
-                                    </button>
-                                </dd>
-                                <dd>
-                                    <div class="divider" />
-                                </dd>
-                                <dd>
-                                    <button href="javascript:void(0)" onclick="$(&#39;#mcover&#39;).show()"
-                                        class="result-btn">
-                                        把结果分享到朋友圈
-                                    </button>
-                                </dd>
+                                <dt>礼品数量有限，拼本页面凭证先到先得.</dt>
                             </dl>
-                            <br>
-                            <div id="copy">
-                                <p class="text-center">
-                                    <a href="http://cnpolitics.org"
-                                        style="color: #000; font-weight: bold;font-size: 15px;">&copy; 政见CNPolitics</a>
-                                </p>
-                            </div>
-
                         </div>
-
-
-                        <div id="panel3" class="panel-body js_result" data-id="8" style="display: none;">
-
-                            <h1 class="bold">
-                                很不错了，你得了80分！</h1>
-                            <hr>
-                            <dl>
-                                <dt>看来愚人节很难有人可以骗到你了。分享到朋友圈炫耀一下吧！</dt>
-                                <dd>
-                                    <p>想知道哪两题错了，点这里关注
-                                        <a
-                                            href="http://mp.weixin.qq.com/s?__biz=MzI3MDE0NzI0MA==&mid=402752827&idx=1&sn=cf86a45ebeb368701d312d5273f940ba#rd">政见CNPolitics,</a>
-                                        回复“骗人”获取答案。
-                                    </p>
-                                </dd>
-                                <dd> <button onclick="location.href=''" class="result-btn">
-                                        再玩一次
-                                    </button>
-                                </dd>
-                                <dd>
-                                    <div class="divider" />
-                                </dd>
-                                <dd>
-                                    <button href="javascript:void(0)" onclick="$(&#39;#mcover&#39;).show()"
-                                        class="result-btn">
-                                        把结果分享到朋友圈
-                                    </button>
-                                </dd>
-                            </dl>
-                            <br>
-                            <div id="copy">
-                                <p class="text-center">
-                                    <a href="http://cnpolitics.org"
-                                        style="color: #000; font-weight: bold;font-size: 15px;">&copy; 政见CNPolitics</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div id="panel3" class="panel-body js_result" data-id="7" style="display: none;">
-
-                            <h1 class="bold">
-                                还可以啦，你得了70分！</h1>
-                            <hr>
-                            <dl>
-                                <dt>要骗到你还是有点难度的。分享到朋友圈炫耀一下吧！</dt>
-                                <dd>
-                                    <p>想知道哪几题错了，点这里关注
-                                        <a
-                                            href="http://mp.weixin.qq.com/s?__biz=MzI3MDE0NzI0MA==&mid=402752827&idx=1&sn=cf86a45ebeb368701d312d5273f940ba#rd">政见CNPolitics,</a>
-                                        回复“骗人”获取答案。
-                                    </p>
-                                </dd>
-                                <dd> <button onclick="location.href=''" class="result-btn">
-                                        再玩一次
-                                    </button>
-                                </dd>
-                                <dd>
-                                    <div class="divider" />
-                                </dd>
-                                <dd>
-                                    <button href="javascript:void(0)" onclick="$(&#39;#mcover&#39;).show()"
-                                        class="result-btn">
-                                        把结果分享到朋友圈
-                                    </button>
-                                </dd>
-                            </dl>
-                            <br>
-                            <div id="copy">
-                                <p class="text-center">
-                                    <a href="http://cnpolitics.org"
-                                        style="color: #000; font-weight: bold;font-size: 15px;">&copy; 政见CNPolitics</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div id="panel3" class="panel-body js_result" data-id="6" style="display: none;">
-
-                            <h1 class="bold">
-                                60分，及格万岁！</h1>
-                            <hr>
-                            <dl>
-                                <dt>分享到朋友圈，让别人也来试一下吧！</dt>
-                                <dd>
-                                    <p>想知道哪几题错了，点这里关注
-                                        <a
-                                            href="http://mp.weixin.qq.com/s?__biz=MzI3MDE0NzI0MA==&mid=402752827&idx=1&sn=cf86a45ebeb368701d312d5273f940ba#rd">政见CNPolitics,</a>
-                                        回复“骗人”获取答案。
-                                    </p>
-                                </dd>
-                                <dd> <button onclick="location.href=''" class="result-btn">
-                                        再玩一次
-                                    </button>
-                                </dd>
-                                <dd>
-                                    <div class="divider" />
-                                </dd>
-                                <dd>
-                                    <button href="javascript:void(0)" onclick="$(&#39;#mcover&#39;).show()"
-                                        class="result-btn">
-                                        把结果分享到朋友圈
-                                    </button>
-                                </dd>
-                            </dl>
-
-                            <br>
-                            <div id="copy">
-                                <p class="text-center">
-                                    <a href="http://cnpolitics.org"
-                                        style="color: #000; font-weight: bold;font-size: 15px;">&copy; 政见CNPolitics</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div id="panel3" class="panel-body js_result" data-id="5" style="display: none;">
-
-                            <h1 class="bold">
-                                50分，差一点就及格了！</h1>
-                            <hr>
-                            <dl>
-                                <dt>分享到朋友圈，让别人也来试一下吧！</dt>
-                                <dd>
-                                    <p>想知道哪几题错了，点这里关注
-                                        <a
-                                            href="http://mp.weixin.qq.com/s?__biz=MzI3MDE0NzI0MA==&mid=402752827&idx=1&sn=cf86a45ebeb368701d312d5273f940ba#rd">政见CNPolitics,</a>
-                                        回复“骗人”获取答案。
-                                    </p>
-                                </dd>
-                                <dd> <button onclick="location.href=''" class="result-btn">
-                                        再玩一次
-                                    </button>
-                                </dd>
-                                <dd>
-                                    <div class="divider" />
-                                </dd>
-                                <dd>
-                                    <button href="javascript:void(0)" onclick="$(&#39;#mcover&#39;).show()"
-                                        class="result-btn">
-                                        把结果分享到朋友圈
-                                    </button>
-                                </dd>
-                            </dl>
-
-                            <br>
-                            <div id="copy">
-                                <p class="text-center">
-                                    <a href="http://cnpolitics.org"
-                                        style="color: #000; font-weight: bold;font-size: 15px;">&copy; 政见CNPolitics</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div id="panel3" class="panel-body js_result" data-id="4" style="display: none;">
-
-                            <h1 class="bold">
-                                你得了40分。看来愚人节可要小心了，提高防骗意识哦！</h1>
-                            <hr>
-                            <dl>
-                                <dt>分享到朋友圈，让别人也来试一下吧！</dt>
-                                <dd>
-                                    <p>想知道哪几题错了，点这里关注
-                                        <a
-                                            href="http://mp.weixin.qq.com/s?__biz=MzI3MDE0NzI0MA==&mid=402752827&idx=1&sn=cf86a45ebeb368701d312d5273f940ba#rd">政见CNPolitics,</a>
-                                        回复“骗人”获取答案。
-                                    </p>
-                                </dd>
-                                <dd> <button onclick="location.href=''" class="result-btn">
-                                        再玩一次
-                                    </button>
-                                </dd>
-                                <dd>
-                                    <div class="divider" />
-                                </dd>
-                                <dd>
-                                    <button href="javascript:void(0)" onclick="$(&#39;#mcover&#39;).show()"
-                                        class="result-btn">
-                                        把结果分享到朋友圈
-                                    </button>
-                                </dd>
-                            </dl>
-
-                            <br>
-                            <div id="copy">
-                                <p class="text-center">
-                                    <a href="http://cnpolitics.org"
-                                        style="color: #000; font-weight: bold;font-size: 15px;">&copy; 政见CNPolitics</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div id="panel3" class="panel-body js_result" data-id="3" style="display: none;">
-
-                            <h1 class="bold">
-                                你得了30分。看来愚人节可要小心了，提高防骗意识哦！</h1>
-                            <hr>
-                            <dl>
-                                <dt>分享到朋友圈，让别人也来试一下吧！</dt>
-                                <dd>
-                                    <p>想知道哪几题错了，点这里关注
-                                        <a
-                                            href="http://mp.weixin.qq.com/s?__biz=MzI3MDE0NzI0MA==&mid=402752827&idx=1&sn=cf86a45ebeb368701d312d5273f940ba#rd">政见CNPolitics,</a>
-                                        回复“骗人”获取答案。
-                                    </p>
-                                </dd>
-                                <dd> <button onclick="location.href=''" class="result-btn">
-                                        再玩一次
-                                    </button>
-                                </dd>
-                                <dd>
-                                    <div class="divider" />
-                                </dd>
-                                <dd>
-                                    <button href="javascript:void(0)" onclick="$(&#39;#mcover&#39;).show()"
-                                        class="result-btn">
-                                        把结果分享到朋友圈
-                                    </button>
-                                </dd>
-                            </dl>
-
-                            <br>
-                            <div id="copy">
-                                <p class="text-center">
-                                    <a href="http://cnpolitics.org"
-                                        style="color: #000; font-weight: bold;font-size: 15px;">&copy; 政见CNPolitics</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div id="panel3" class="panel-body js_result" data-id="2" style="display: none;">
-
-                            <h1 class="bold">
-                                你得了20分。看来愚人节可要小心了，提高防骗意识哦！</h1>
-                            <hr>
-                            <dl>
-                                <dt>分享到朋友圈，让别人也来试一下吧！</dt>
-                                <dd>
-                                    <p>想知道哪几题错了，点这里关注
-                                        <a
-                                            href="http://mp.weixin.qq.com/s?__biz=MzI3MDE0NzI0MA==&mid=402752827&idx=1&sn=cf86a45ebeb368701d312d5273f940ba#rd">政见CNPolitics,</a>
-                                        回复“骗人”获取答案。
-                                    </p>
-                                </dd>
-                                <dd> <button onclick="location.href=''" class="result-btn">
-                                        再玩一次
-                                    </button>
-                                </dd>
-                                <dd>
-                                    <div class="divider" />
-                                </dd>
-                                <dd>
-                                    <button href="javascript:void(0)" onclick="$(&#39;#mcover&#39;).show()"
-                                        class="result-btn">
-                                        把结果分享到朋友圈
-                                    </button>
-                                </dd>
-                            </dl>
-
-                            <br>
-                            <div id="copy">
-                                <p class="text-center">
-                                    <a href="http://cnpolitics.org"
-                                        style="color: #000; font-weight: bold;font-size: 15px;">&copy; 政见CNPolitics</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div id="panel3" class="panel-body js_result" data-id="1" style="display: none;">
-
-                            <h1 class="bold">
-                                你只答对了1题，看来愚人节可要小心了，提高防骗意识哦！</h1>
-                            <hr>
-                            <dl>
-                                <dt>分享到朋友圈，让别人也来试一下吧！</dt>
-                                <dd>
-                                    <p>想知道哪几题错了，点这里关注
-                                        <a
-                                            href="http://mp.weixin.qq.com/s?__biz=MzI3MDE0NzI0MA==&mid=402752827&idx=1&sn=cf86a45ebeb368701d312d5273f940ba#rd">政见CNPolitics,</a>
-                                        回复“骗人”获取答案。
-                                    </p>
-                                </dd>
-                                <dd> <button onclick="location.href=''" class="result-btn">
-                                        再玩一次
-                                    </button>
-                                </dd>
-                                <dd>
-                                    <div class="divider" />
-                                </dd>
-                                <dd>
-                                    <button href="javascript:void(0)" onclick="$(&#39;#mcover&#39;).show()"
-                                        class="result-btn">
-                                        把结果分享到朋友圈
-                                    </button>
-                                </dd>
-                            </dl>
-
-                            <br>
-                            <div id="copy">
-                                <p class="text-center">
-                                    <a href="http://cnpolitics.org"
-                                        style="color: #000; font-weight: bold;font-size: 15px;">&copy; 政见CNPolitics</a>
-                                </p>
-                            </div>
-                        </div>
-
-                        <div id="panel3" class="panel-body js_result" data-id="0" style="display: none;">
-
-                            <h1 class="bold">
-                                大神，你确定没有在故意耍我们吗！</h1>
-                            <hr>
-                            <dl>
-                                <dt>因为你居然完美避开了所有正确答案！服了！</dt>
-                                <dd>
-                                    <p>点这里关注
-                                        <a
-                                            href="http://mp.weixin.qq.com/s?__biz=MzI3MDE0NzI0MA==&mid=402752827&idx=1&sn=cf86a45ebeb368701d312d5273f940ba#rd">政见CNPolitics,</a>
-                                        回复“骗人”获取对这些奇葩研究的详细介绍。
-                                    </p>
-                                </dd>
-                                <dd> <button onclick="location.href=''" class="result-btn">
-                                        再玩一次
-                                    </button>
-                                </dd>
-                                <dd>
-                                    <div class="divider" />
-                                </dd>
-                                <dd>
-                                    <button href="javascript:void(0)" onclick="$(&#39;#mcover&#39;).show()"
-                                        class="result-btn">
-                                        把结果分享到朋友圈
-                                    </button>
-                                </dd>
-                            </dl>
-
-                            <!-- <br>
-                            <div id="copy">
-                                <p class="text-center">
-                                    <a href="http://cnpolitics.org"
-                                        style="color: #000; font-weight: bold;font-size: 15px;">&copy; 政见CNPolitics</a>
-                                </p>
-                            </div> -->
-                        </div>
-
                         <!-- E bd -->
                     </div>
                     <!-- E container -->
@@ -557,24 +144,18 @@
                 <div id="mcover" onclick="document.getElementById('mcover').style.display='';" style="display: none;">
                     <img src="asserts/guide.png">
                 </div>
-
-                <div id="pop_success" class="text-center" style="display: none;">
-                    <div class="bd text-center">
-                        <p style="line-height: 110px;">
-                            分享成功</p>
-                    </div>
-                    <!-- E bd -->
-                </div>
-
-                <!-- E copy -->
-                <div id="share_tips" class="sr-only">
-                    <div class="container text-right">
-                        点击右上角，分享给朋友/朋友圈 <i class="glyphicon glyphicon-hand-up element-animation"></i>
-                    </div>
-                    <!-- E container -->
-                </div>
             </div>
         </div>
 </body>
-
+<!-- <script>
+    var overlay = document.getElementById("overlay");
+    function openLockDown() {
+        overlay.style.display = "block";
+        // $('#overlay').show();
+    }
+    function closeLuckDown() {
+        overlay.style.display = "none";
+        // $('#overlay').hide();
+    }
+</script> -->
 </html>
