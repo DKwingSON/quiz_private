@@ -66,6 +66,7 @@ function start() {
 function loadQuiz(id) {
     if (isQuizDone()) {
         result();
+        return;
     }
     var q = quizInfo[id];
     var idx = 0;
@@ -112,22 +113,16 @@ function explain(id, isAnsCorrect) {
 
 //toggle callback
 function toggle(t) {
-    if (isQuizDone()) {
-        console.log("done...");
-        result();
-        return;
+    $(t).children("input").attr("checked", "checked");
+    $("li.list-group-item").removeClass('active')
+    var rt = $(t).children("input:checked").val();
+    var score = rt.match(/\d+/)[0];
+    console.log("tScore => " + tScore + ",score => " + score);
+    if (score <= 0) {
+        explain(quizIdx, false);
     } else {
-        $(t).children("input").attr("checked", "checked");
-        $("li.list-group-item").removeClass('active')
-        var rt = $(t).children("input:checked").val();
-        var score = rt.match(/\d+/)[0];
-        console.log("tScore => " + tScore + ",score => " + score);
-        if (score <= 0) {
-            explain(quizIdx, false);
-        } else {
-            tScore = parseInt(tScore) + parseInt(score);
-            explain(quizIdx, true);
-        }
+        tScore = parseInt(tScore) + parseInt(score);
+        explain(quizIdx, true);
     }
 }
 
